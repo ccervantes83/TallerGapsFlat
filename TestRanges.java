@@ -18,38 +18,6 @@ public class TestRanges {
 
         Interval[] expected = { new Interval(1.0, 100.0) };
         assertThat (ranges, contains(expected)); // checks ranges.iterator()
-        
- 
-    }
-
-    @Test
-    public void testSubtractLowEnd() {
-        Ranges ranges = new Ranges(10.0, 100.0);
-        Interval interval = new Interval(0.0, 20.0);
-        ranges.remove(interval);
-        assertThat(ranges.sum(), closeTo(80.0, precision));
-        Interval[] expected = { new Interval(20.0, 100.0) };
-        assertThat (ranges, contains(expected));
-    }
-
-    @Test
-    public void testSubtractHighEnd() {
-        Ranges ranges = new Ranges(10.0, 100.0);
-        Interval interval = new Interval(90.0, 110.0);
-        ranges.remove(interval);
-        assertThat(ranges.sum(), closeTo(80.0, precision));
-        Interval[] expected = { new Interval(10.0, 90.0) };
-        assertThat (ranges, contains(expected));
-    }
-
-    @Test
-    public void testSubtractInterior() {
-        Ranges ranges = new Ranges(10.0, 100.0);
-        Interval interval = new Interval(20.0, 90.0);
-        ranges.remove(interval);
-        assertThat(ranges.sum(), closeTo(20.0, precision));
-        Interval[] expected = { new Interval(10.0, 20.0), new Interval(90.0, 100.0) };
-        assertThat (ranges, contains(expected));
     }
 
     @Test
@@ -59,6 +27,36 @@ public class TestRanges {
         ranges.remove(interval);
         assertThat(ranges.sum(), closeTo(0.0, precision));
         assertThat (ranges.iterator().hasNext(), is(false));
+    }
+    
+    @Test
+    public void testSubtractHighEnd() {
+        Ranges ranges = new Ranges(10.0, 100.0);
+        Interval interval = new Interval(90.0, 110.0);
+        ranges.remove(interval);
+        assertThat(ranges.sum(), closeTo(80.0, precision));
+        Interval[] expected = { new Interval(10.0, 90.0) };
+        assertThat (ranges, contains(expected));
+    }
+    
+    @Test
+    public void testSubtractInterior() {
+        Ranges ranges = new Ranges(10.0, 100.0);
+        Interval interval = new Interval(20.0, 90.0);
+        ranges.remove(interval);
+        assertThat(ranges.sum(), closeTo(10.0,precision));
+        Interval[] expected = { new Interval(10.0, 20.0)};
+        assertThat (ranges, contains(expected));
+    }
+        
+    @Test
+    public void testSubtractLowEnd() {
+        Ranges ranges = new Ranges(10.0, 100.0);
+        Interval interval = new Interval(0.0, 20.0);
+        ranges.remove(interval);
+        assertThat(ranges.sum(), closeTo(80.0, precision));
+        Interval[] expected = { new Interval(20.0, 100.0) };
+        assertThat (ranges, contains(expected));
     }
 
     @Test
